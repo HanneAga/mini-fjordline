@@ -42,12 +42,12 @@ export const departures: Departure[] = [
     price: 1349,
   },
    {
-    id: 'bergen-hirtshals-20260502-1900',
+    id: 'bergen-hirtshals-20260503-1900',
     from: 'Bergen',
     to: 'Hirtshals',
     date: '2026-05-03',
-    departureTime: '19:00',
-    arrivalTime: '07:30',
+    departureTime: '20:00',
+    arrivalTime: '08:30',
     durationMinutes: 750,
     price: 1349,
   }
