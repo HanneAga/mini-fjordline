@@ -1,17 +1,22 @@
 'use client'
 
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, useRouter } from 'next/navigation'
 import { useEffect, useState, Suspense } from 'react'
 import { Departure } from '../../../types/departure'
 
 function Results() {
   const searchParams = useSearchParams()
+  const router = useRouter()
   const from = searchParams.get('from')
   const to = searchParams.get('to')
   const date = searchParams.get('date')
 
   const [departures, setDepartures] = useState<Departure[]>([])
   const [loading, setLoading] = useState(true)
+
+  const handleSelect = (departureId: string) => {
+    router.push(`/summary?id=${departureId}`)
+  }
 
   useEffect(() => {
     const fetchDepartures = async () => {
@@ -50,7 +55,9 @@ function Results() {
             <div>Ankomst: {departure.arrivalTime}</div>
             <div>Varighet: {departure.durationMinutes} minutter</div>
             <div>Pris: {departure.price} NOK</div>
-            <button>Velg</button>
+            <button type="button" onClick={() => handleSelect(departure.id)}>
+              Velg
+            </button>
           </li>
         ))}
       </ul>
