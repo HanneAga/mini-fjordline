@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mini-Fjordline
 
-## Getting Started
+Dette er en enkel mini bookingapp hvor man kan søke etter ferjeavganger, velge en avgang og se en oppsummering av reisen.
 
-First, run the development server:
+## Hva den gjør
 
-```bash
+* Lar brukeren søke på avreisested, destinasjon og dato
+* Viser en liste med tilgjengelige avganger
+* Lar brukeren velge en avgang
+* Viser en enkel oppsummering av valgt reise
+
+## Teknologi
+
+Appen er bygget med Next.js (App Router), React og TypeScript.
+Det brukes mock-data, så det er ingen database eller ekstern backend.
+
+## Valg jeg tok
+
+Jeg valgte å bruke Next.js route handlers som “backend” i stedet for å lage et separat API.
+
+Jeg har jobbet mye med C#, og vurderte å lage en egen backend, men siden oppgaven kun krevde mock-data føltes det mer riktig å holde alt i én applikasjon. Det gjorde løsningen enklere og raskere å jobbe med.
+
+Jeg har også prøvd å holde state og struktur så enkel som mulig, og fokusere på en tydelig flyt:
+søk → resultater → oppsummering.
+
+## Hvis jeg hadde hatt mer tid
+
+* gjort UI litt mer gjennomarbeidet
+* lagt til bedre validering og feilhåndtering
+* brukt dropdowns i stedet for fritekst for steder
+* vurdert en ekte backend med database
+
+## Utfordringer
+
+Det mest utfordrende var å få riktig flyt med query params og hvordan Next.js håndterer searchParams i App Router.
+
+Jeg brukte også litt tid på å finne riktig balanse mellom Client og Server Components.
+
+## Kjøre prosjektet
+
+
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Åpne http://localhost:3000
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
