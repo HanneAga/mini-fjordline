@@ -1,11 +1,12 @@
 import { departures } from '../../../data/departures'
 
 type SummaryPageProps = {
-  searchParams: { id?: string }
+  searchParams: Promise<{ id?: string }>
 }
 
-export default function SummaryPage({ searchParams }: SummaryPageProps) {
-  const id = searchParams?.id
+export default async function SummaryPage({ searchParams }: SummaryPageProps) {
+  const params = await searchParams
+  const id = params?.id
 
   if (!id) {
     return (
