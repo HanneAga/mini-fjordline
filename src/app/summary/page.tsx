@@ -13,6 +13,7 @@ export default async function SummaryPage({ searchParams }: SummaryPageProps) {
       <main>
         <h1>Oppsummering</h1>
         <p>Ingen avgang valgt.</p>
+        <a href="/">Gå tilbake</a>
       </main>
     )
   }

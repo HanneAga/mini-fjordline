@@ -24,7 +24,7 @@ function Results() {
       if (from) params.append('from', from)
       if (to) params.append('to', to)
       if (date) params.append('date', date)
-
+      
       const response = await fetch(`/api/departures?${params.toString()}`)
       const data = await response.json()
       setDepartures(data)
@@ -33,6 +33,15 @@ function Results() {
 
     fetchDepartures()
   }, [from, to, date])
+
+  if (!from || !to || !date) {
+  return (
+    <>
+      <p>Vennligst gjør et søk først.</p>
+      <a href="/">Gå til søk</a>
+    </>
+  )
+}
 
   if (loading) {
     return <p>Loading...</p>
