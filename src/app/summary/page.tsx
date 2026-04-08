@@ -1,4 +1,5 @@
 import { departures } from '../../../data/departures'
+import styles from './page.module.css'
 
 type SummaryPageProps = {
   searchParams: Promise<{ id?: string }>
@@ -10,10 +11,12 @@ export default async function SummaryPage({ searchParams }: SummaryPageProps) {
 
   if (!id) {
     return (
-      <main>
-        <h1>Oppsummering</h1>
-        <p>Ingen avgang valgt.</p>
-        <a href="/">Gå tilbake</a>
+      <main className={styles.page}>
+        <section className={styles.card}>
+          <h1 className={styles.title}>Oppsummering</h1>
+          <p className={styles.message}>Ingen avgang valgt.</p>
+          <a className={styles.link} href="/">Gå tilbake</a>
+        </section>
       </main>
     )
   }
@@ -22,24 +25,31 @@ export default async function SummaryPage({ searchParams }: SummaryPageProps) {
 
   if (!departure) {
     return (
-      <main>
-        <h1>Oppsummering</h1>
-        <p>Avgang ikke funnet.</p>
+      <main className={styles.page}>
+        <section className={styles.card}>
+          <h1 className={styles.title}>Oppsummering</h1>
+          <p className={styles.message}>Avgang ikke funnet.</p>
+        </section>
       </main>
     )
   }
 
   return (
-    <main>
-      <h1>Reiseoppsummering</h1>
-      <p>
+    <main className={styles.page}>
+      <section className={styles.card}>
+      <h1 className={styles.title}>Reiseoppsummering</h1>
+      <p className={styles.route}>
         <strong>{departure.from}</strong> → <strong>{departure.to}</strong>
       </p>
-      <p>Dato: {departure.date}</p>
-      <p>Avgang: {departure.departureTime}</p>
-      <p>Ankomst: {departure.arrivalTime}</p>
-      <p>Varighet: {departure.durationMinutes} minutter</p>
-      <p>Pris: {departure.price} NOK</p>
+      <div className={styles.details}>
+        <p><span>Dato:</span> {departure.date}</p>
+        <p><span>Avgang:</span> {departure.departureTime}</p>
+        <p><span>Ankomst:</span> {departure.arrivalTime}</p>
+        <p><span>Varighet:</span> {departure.durationMinutes} minutter</p>
+      </div>
+      <p className={styles.price}>Pris: {departure.price} NOK</p>
+      <a className={styles.link} href="/">Nytt søk</a>
+      </section>
     </main>
   )
 }

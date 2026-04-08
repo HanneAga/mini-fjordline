@@ -3,6 +3,7 @@
 import { useSearchParams, useRouter } from 'next/navigation'
 import { useEffect, useState, Suspense } from 'react'
 import { Departure } from '../../../types/departure'
+import styles from './page.module.css'
 
 function Results() {
   const searchParams = useSearchParams()
@@ -36,47 +37,73 @@ function Results() {
 
   if (!from || !to || !date) {
   return (
-    <>
-      <p>Vennligst gjør et søk først.</p>
-      <a href="/">Gå til søk</a>
-    </>
+    <main className={styles.page}>
+      <section className={styles.card}>
+        <h1 className={styles.title}>Avganger</h1>
+        <p className={styles.message}>Vennligst gjør et søk først.</p>
+        <a className={styles.link} href="/">Gå til søk</a>
+      </section>
+    </main>
   )
 }
 
   if (loading) {
-    return <p>Loading...</p>
+    return (
+      <main className={styles.page}>
+        <section className={styles.card}>
+          <p className={styles.message}>Laster avganger...</p>
+        </section>
+      </main>
+    )
   }
 
   if (departures.length === 0) {
-    return <p>Ingen avganger funnet.</p>
+    return (
+      <main className={styles.page}>
+        <section className={styles.card}>
+          <h1 className={styles.title}>Avganger</h1>
+          <p className={styles.message}>Ingen avganger funnet.</p>
+          <a className={styles.link} href="/">Nytt søk</a>
+        </section>
+      </main>
+    )
   }
 
   return (
-    <div>
-      <h1>Avganger</h1>
-      <ul>
+    <main className={styles.page}>
+      <section className={styles.card}>
+      <header className={styles.header}>
+        <h1 className={styles.title}>Avganger</h1>
+        <p className={styles.subtitle}>{from} → {to} · {date}</p>
+      </header>
+      <ul className={styles.list}>
         {departures.map((departure) => (
-          <li key={departure.id}>
-            <div>
+          <li key={departure.id} className={styles.departureCard}>
+            <div className={styles.route}>
               <strong>{departure.from} → {departure.to}</strong>
             </div>
-            <div>Avgang: {departure.departureTime}</div>
-            <div>Ankomst: {departure.arrivalTime}</div>
-            <div>Varighet: {departure.durationMinutes} minutter</div>
-            <div>Pris: {departure.price} NOK</div>
-            <button type="button" onClick={() => handleSelect(departure.id)}>
+            <div className={styles.times}>
+              <span>Avgang: {departure.departureTime}</span>
+              <span>Ankomst: {departure.arrivalTime}</span>
+            </div>
+            <div className={styles.duration}>Varighet: {departure.durationMinutes} minutter</div>
+            <div className={styles.bottomRow}>
+              <div className={styles.price}>{departure.price} NOK</div>
+              <button className={styles.button} type="button" onClick={() => handleSelect(departure.id)}>
               Velg
             </button>
+            </div>
           </li>
         ))}
       </ul>
-    </div>
+      </section>
+    </main>
   )
 }
 
 export default function ResultsPage() {
   return (
-    <Suspense fallback={<p>Loading...</p>}>
+    <Suspense fallback={<main className={styles.page}><section className={styles.card}><p className={styles.message}>Laster avganger...</p></section></main>}>
       <Results />
     </Suspense>
   )

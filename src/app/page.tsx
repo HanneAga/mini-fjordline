@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import styles from "./page.module.css";
 
 export default function Home() {
   const router = useRouter();
@@ -27,31 +28,35 @@ export default function Home() {
   };
 
   return (
-    <main>
-      <h1>Fjordreise</h1>
-      <p>Finn og se avganger for fergereiser langs fjorden på en enkel og oversiktlig måte.</p>
-      <form onSubmit={handleSearch}>
-        <div>
+    <main className={styles.main}>
+      <div className={styles.header}>
+        <h1>Mini Fjord Line</h1>
+        <p>Finn og se avganger for fergereiser langs fjorden på en enkel og oversiktlig måte.</p>
+      </div>
+      <form className={styles.form} onSubmit={handleSearch}>
+        <div className={styles.formGroup}>
           <label htmlFor="from">Avreisested</label>
           <input
             id="from"
             name="from"
             type="text"
+            placeholder="F.eks. Bergen"
             value={from}
             onChange={(event) => setFrom(event.target.value)}
           />
         </div>
-        <div>
+        <div className={styles.formGroup}>
           <label htmlFor="to">Destinasjon</label>
           <input
             id="to"
             name="to"
             type="text"
+            placeholder="F.eks. Sognefjord"
             value={to}
             onChange={(event) => setTo(event.target.value)}
           />
         </div>
-        <div>
+        <div className={styles.formGroup}>
           <label htmlFor="date">Dato</label>
           <input
             id="date"
@@ -61,7 +66,7 @@ export default function Home() {
             onChange={(event) => setDate(event.target.value)}
           />
         </div>
-        <button type="submit">Søk avganger</button>
+        <button type="submit" className={styles.submitButton}>Søk avganger</button>
       </form>
     </main>
   );
