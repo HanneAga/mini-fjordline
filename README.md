@@ -27,7 +27,6 @@ søk → resultater → oppsummering.
 
 * gjort UI litt mer gjennomarbeidet
 * lagt til bedre validering og feilhåndtering
-* brukt dropdowns i stedet for fritekst for steder
 * vurdert en ekte backend med database
 
 ## Utfordringer
