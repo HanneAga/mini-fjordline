@@ -55,7 +55,21 @@ export default function Home() {
                   value={from}
                   onChange={(event) => setFrom(event.target.value)}
                 />
-                <span className={styles.icon}>i</span>
+                <svg
+                  className={styles.icon}
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="12" cy="12" r="9" />
+                  <circle cx="12" cy="12" r="2.5" />
+                </svg>
               </div>
             </div>
 
@@ -86,7 +100,21 @@ export default function Home() {
                   value={to}
                   onChange={(event) => setTo(event.target.value)}
                 />
-                <span className={styles.icon}>⌖</span>
+                <svg
+                  className={styles.icon}
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M12 21s-7-5.2-7-11a7 7 0 0 1 14 0c0 5.8-7 11-7 11z" />
+                  <circle cx="12" cy="10" r="2.5" />
+                </svg>
               </div>
             </div>
 
