@@ -11,12 +11,17 @@ function Results() {
   const from = searchParams.get('from')
   const to = searchParams.get('to')
   const date = searchParams.get('date')
+  const promoActive = searchParams.get('promo') === '1'
 
   const [departures, setDepartures] = useState<Departure[]>([])
   const [loading, setLoading] = useState(true)
 
   const handleSelect = (departureId: string) => {
-    router.push(`/summary?id=${departureId}`)
+    const params = new URLSearchParams({ id: departureId })
+    if (promoActive) {
+      params.append('promo', '1')
+    }
+    router.push(`/summary?${params.toString()}`)
   }
 
   useEffect(() => {
@@ -88,7 +93,7 @@ function Results() {
             </div>
             <div className={styles.duration}>Varighet: {departure.durationMinutes} minutter</div>
             <div className={styles.bottomRow}>
-              <div className={styles.price}>{departure.price} NOK</div>
+              <div className={styles.price}>{Math.max(0, departure.price - (promoActive ? 400 : 0))} NOK</div>
               <button className={styles.button} type="button" onClick={() => handleSelect(departure.id)}>
               Velg
             </button>

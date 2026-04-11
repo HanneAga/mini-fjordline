@@ -2,12 +2,13 @@ import { departures } from '../../../data/departures'
 import styles from './page.module.css'
 
 type SummaryPageProps = {
-  searchParams: Promise<{ id?: string }>
+  searchParams: Promise<{ id?: string; promo?: string }>
 }
 
 export default async function SummaryPage({ searchParams }: SummaryPageProps) {
   const params = await searchParams
   const id = params?.id
+  const promoActive = params?.promo === '1'
 
   if (!id) {
     return (
@@ -34,6 +35,8 @@ export default async function SummaryPage({ searchParams }: SummaryPageProps) {
     )
   }
 
+  const finalPrice = Math.max(0, departure.price - (promoActive ? 400 : 0))
+
   return (
     <main className={styles.page}>
       <section className={styles.card}>
@@ -47,7 +50,7 @@ export default async function SummaryPage({ searchParams }: SummaryPageProps) {
         <p><span>Ankomst:</span> {departure.arrivalTime}</p>
         <p><span>Varighet:</span> {departure.durationMinutes} minutter</p>
       </div>
-      <p className={styles.price}>Pris: {departure.price} NOK</p>
+      <p className={styles.price}>Pris: {finalPrice} NOK</p>
       <a className={styles.link} href="/">Nytt søk</a>
       </section>
     </main>

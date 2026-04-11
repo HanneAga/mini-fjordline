@@ -384,6 +384,84 @@
   font-size: 16px;
 }
 
+.promoButton {
+  margin-top: 10px;
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px dashed var(--sand);
+  border-radius: 12px;
+  background: #fff;
+  color: #6d6456;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+
+.promoButton:hover {
+  border-color: var(--amber);
+  color: var(--ink);
+  background: #fff8f0;
+}
+
+.plusIcon {
+  width: 18px;
+  height: 18px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  line-height: 1;
+}
+
+.promoSuccess {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #5e7753;
+}
+
+.promoInput {
+  margin-top: 4px;
+}
+
+.promoError {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: #b24747;
+}
+
+.popupActions {
+  margin-top: 16px;
+  display: flex;
+  gap: 10px;
+}
+
+.popupSecondaryButton {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--sand);
+  border-radius: 12px;
+  background: #fff;
+  color: #6d6456;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+
+.popupSecondaryButton:hover {
+  border-color: var(--amber);
+  color: var(--ink);
+  background: #fff8f0;
+}
+
 .popupOverlay {
   position: fixed;
   inset: 0;

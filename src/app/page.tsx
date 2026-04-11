@@ -35,6 +35,10 @@ export default function Home() {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [date, setDate] = useState("");
+  const [promoCode, setPromoCode] = useState("");
+  const [promoError, setPromoError] = useState("");
+  const [showPromoPopup, setShowPromoPopup] = useState(false);
+  const [promoApplied, setPromoApplied] = useState(false);
   const [showFromMenu, setShowFromMenu] = useState(false);
   const [showToMenu, setShowToMenu] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
@@ -98,7 +102,28 @@ export default function Home() {
       date,
     });
 
+    if (promoApplied) {
+      params.append("promo", "1");
+    }
+
     router.push(`/results?${params.toString()}`);
+  };
+
+  const handleOpenPromoPopup = () => {
+    setPromoError("");
+    setShowPromoPopup(true);
+  };
+
+  const handleApplyPromoCode = () => {
+    if (promoCode.trim() === "ansett Hanne") {
+      setPromoApplied(true);
+      setPromoError("");
+      setShowPromoPopup(false);
+      return;
+    }
+
+    setPromoApplied(false);
+    setPromoError("Ugyldig kampanjekode. Prøv igjen.");
   };
 
   return (
@@ -327,8 +352,48 @@ export default function Home() {
             Søk avganger
             <span className={styles.arrow}>→</span>
           </button>
+
+          <button type="button" className={styles.promoButton} onClick={handleOpenPromoPopup}>
+            <span className={styles.plusIcon}>+</span>
+            Legg til kampanjekode
+          </button>
+          {promoApplied && <p className={styles.promoSuccess}>Kampanjekode aktivert.</p>}
         </form>
       </section>
+
+      {showPromoPopup && (
+        <div className={styles.popupOverlay} role="dialog" aria-modal="true" aria-labelledby="promo-title">
+          <div className={styles.popup}>
+            <p className={styles.popupEyebrow}>Mini fjordline</p>
+            <h2 id="promo-title" className={styles.popupTitle}>Legg til kampanjekode</h2>
+            <p className={styles.popupText}>Skriv inn kampanjekoden din.</p>
+            <input
+              type="text"
+              value={promoCode}
+              onChange={(event) => setPromoCode(event.target.value)}
+              placeholder="ansett Hanne"
+              className={styles.promoInput}
+            />
+            {promoError && <p className={styles.promoError}>{promoError}</p>}
+            <div className={styles.popupActions}>
+              <button
+                type="button"
+                className={styles.popupSecondaryButton}
+                onClick={() => setShowPromoPopup(false)}
+              >
+                Avbryt
+              </button>
+              <button
+                type="button"
+                className={styles.popupButton}
+                onClick={handleApplyPromoCode}
+              >
+                Bruk kode
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {showValidationPopup && (
         <div className={styles.popupOverlay} role="dialog" aria-modal="true" aria-labelledby="validation-title">
