@@ -49,6 +49,141 @@
   margin-top: 22px;
 }
 
+.dateTrigger {
+  width: 100%;
+  min-height: 56px;
+  border: 1.5px solid transparent;
+  border-radius: 14px;
+  background: var(--cream);
+  color: var(--ink);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 15px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+
+.dateTrigger:hover {
+  border-color: var(--sand);
+}
+
+.dateTrigger:focus {
+  outline: none;
+  border-color: var(--amber);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(200, 131, 42, 0.1);
+}
+
+.calendarIcon {
+  width: 16px;
+  height: 16px;
+  opacity: 0.75;
+}
+
+.calendarPopover {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 0;
+  z-index: 15;
+  width: 100%;
+  border: 1px solid rgba(13, 13, 13, 0.08);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow:
+    0 10px 28px rgba(13, 13, 13, 0.14),
+    0 1px 0 rgba(13, 13, 13, 0.04);
+  padding: 14px;
+}
+
+.calendarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.monthTitle {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.monthButton {
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--sand);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.monthButton:hover {
+  border-color: var(--amber);
+  background: #fff8f0;
+}
+
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.weekdays span {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #8f8474;
+}
+
+.calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.dayButton {
+  height: 34px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.dayButton:hover {
+  border-color: var(--amber);
+  background: #fff8f0;
+}
+
+.dayMuted {
+  color: #b8ae9f;
+}
+
+.dayToday {
+  border-color: var(--sand);
+}
+
+.daySelected {
+  background: var(--ink);
+  color: #fff;
+}
+
+.daySelected:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
 .fieldLabel {
   font-size: 10px;
   font-weight: 500;

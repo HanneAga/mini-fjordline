@@ -4,16 +4,79 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
 
+const weekdayLabels = ["Man", "Tir", "Ons", "Tor", "Fre", "Lor", "Son"];
+
+function toIsoDate(date: Date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function buildCalendarDays(monthStart: Date) {
+  const year = monthStart.getFullYear();
+  const month = monthStart.getMonth();
+  const firstDayOfMonth = new Date(year, month, 1);
+  const startOffset = (firstDayOfMonth.getDay() + 6) % 7;
+
+  return Array.from({ length: 42 }, (_, index) => {
+    const dayDate = new Date(year, month, index - startOffset + 1);
+    return {
+      iso: toIsoDate(dayDate),
+      label: dayDate.getDate(),
+      inCurrentMonth: dayDate.getMonth() === month,
+    };
+  });
+}
+
 export default function Home() {
   const router = useRouter();
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [date, setDate] = useState("");
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [visibleMonth, setVisibleMonth] = useState(() => {
+    const now = new Date();
+    return new Date(now.getFullYear(), now.getMonth(), 1);
+  });
   const [showValidationPopup, setShowValidationPopup] = useState(false);
+
+  const monthLabel = new Intl.DateTimeFormat("nb-NO", {
+    month: "long",
+    year: "numeric",
+  }).format(visibleMonth);
+  const calendarDays = buildCalendarDays(visibleMonth);
+  const todayIso = toIsoDate(new Date());
+  const dateLabel = date
+    ? new Intl.DateTimeFormat("nb-NO", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      }).format(new Date(`${date}T00:00:00`))
+    : "dd.mm.åååå";
 
   const handleSwap = () => {
     setFrom(to);
     setTo(from);
+  };
+
+  const handlePreviousMonth = () => {
+    setVisibleMonth(
+      (currentMonth) =>
+        new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1),
+    );
+  };
+
+  const handleNextMonth = () => {
+    setVisibleMonth(
+      (currentMonth) =>
+        new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1),
+    );
+  };
+
+  const handleSelectDate = (selectedDate: string) => {
+    setDate(selectedDate);
+    setShowCalendar(false);
   };
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
@@ -119,15 +182,84 @@ export default function Home() {
             </div>
 
             <div className={`${styles.field} ${styles.dateField}`}>
-              <label className={styles.fieldLabel} htmlFor="date">Dato</label>
+              <label className={styles.fieldLabel} htmlFor="date-trigger">Dato</label>
               <div className={styles.inputWrap}>
-                <input
-                  id="date"
-                  name="date"
-                  type="date"
-                  value={date}
-                  onChange={(event) => setDate(event.target.value)}
-                />
+                <button
+                  id="date-trigger"
+                  type="button"
+                  className={styles.dateTrigger}
+                  aria-expanded={showCalendar}
+                  onClick={() => setShowCalendar((open) => !open)}
+                >
+                  <span>{dateLabel}</span>
+                  <svg
+                    className={styles.calendarIcon}
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <rect x="3" y="4" width="18" height="17" rx="2" />
+                    <path d="M16 2v4M8 2v4M3 10h18" />
+                  </svg>
+                </button>
+
+                {showCalendar && (
+                  <div className={styles.calendarPopover} role="dialog" aria-label="Velg dato">
+                    <div className={styles.calendarHeader}>
+                      <button
+                        type="button"
+                        className={styles.monthButton}
+                        onClick={handlePreviousMonth}
+                        aria-label="Forrige måned"
+                      >
+                        ←
+                      </button>
+                      <p className={styles.monthTitle}>{monthLabel}</p>
+                      <button
+                        type="button"
+                        className={styles.monthButton}
+                        onClick={handleNextMonth}
+                        aria-label="Neste måned"
+                      >
+                        →
+                      </button>
+                    </div>
+
+                    <div className={styles.weekdays}>
+                      {weekdayLabels.map((weekday) => (
+                        <span key={weekday}>{weekday}</span>
+                      ))}
+                    </div>
+
+                    <div className={styles.calendarGrid}>
+                      {calendarDays.map((day) => {
+                        const isSelected = day.iso === date;
+                        const isToday = day.iso === todayIso;
+
+                        return (
+                          <button
+                            key={day.iso}
+                            type="button"
+                            className={`${styles.dayButton} ${
+                              day.inCurrentMonth ? "" : styles.dayMuted
+                            } ${isSelected ? styles.daySelected : ""} ${
+                              isToday ? styles.dayToday : ""
+                            }`}
+                            onClick={() => handleSelectDate(day.iso)}
+                          >
+                            {day.label}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
