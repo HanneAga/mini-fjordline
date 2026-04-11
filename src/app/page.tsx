@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
 
 const weekdayLabels = ["Man", "Tir", "Ons", "Tor", "Fre", "Lor", "Son"];
+const departureOptions = ["Stavanger", "Hirtshals", "Bergen", "Kristiansand"];
 
 function toIsoDate(date: Date) {
   const year = date.getFullYear();
@@ -34,6 +35,8 @@ export default function Home() {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [date, setDate] = useState("");
+  const [showFromMenu, setShowFromMenu] = useState(false);
+  const [showToMenu, setShowToMenu] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
   const [visibleMonth, setVisibleMonth] = useState(() => {
     const now = new Date();
@@ -54,6 +57,8 @@ export default function Home() {
         year: "numeric",
       }).format(new Date(`${date}T00:00:00`))
     : "dd.mm.åååå";
+  const fromOptions = departureOptions.filter((option) => option !== to);
+  const toOptions = departureOptions.filter((option) => option !== from);
 
   const handleSwap = () => {
     setFrom(to);
@@ -104,20 +109,47 @@ export default function Home() {
 
         <form className={styles.form} onSubmit={handleSearch}>
           <div className={styles.route}>
-            <div className={styles.field}>
-              <label className={styles.fieldLabel} htmlFor="from">
+            <div className={`${styles.field} ${showFromMenu ? styles.fieldOverlay : ""}`}>
+              <label className={styles.fieldLabel} htmlFor="from-trigger">
                 <span className={`${styles.dot} ${styles.dotFrom}`} />
                 Fra
               </label>
               <div className={styles.inputWrap}>
-                <input
-                  id="from"
-                  name="from"
-                  type="text"
-                  placeholder="Avreisested"
-                  value={from}
-                  onChange={(event) => setFrom(event.target.value)}
-                />
+                <button
+                  id="from-trigger"
+                  type="button"
+                  className={`${styles.dropdownTrigger} ${
+                    from ? styles.dropdownFilled : styles.dropdownPlaceholder
+                  }`}
+                  aria-expanded={showFromMenu}
+                  onClick={() => {
+                    setShowFromMenu((open) => !open);
+                    setShowToMenu(false);
+                  }}
+                >
+                  <span>{from || "Velg avreisested"}</span>
+                  <span className={styles.dropdownArrow}>▾</span>
+                </button>
+
+                {showFromMenu && (
+                  <div className={styles.dropdownMenu} role="listbox" aria-label="Velg avreisested">
+                    {fromOptions.map((option) => (
+                      <button
+                        key={option}
+                        type="button"
+                        className={`${styles.dropdownOption} ${
+                          from === option ? styles.dropdownOptionActive : ""
+                        }`}
+                        onClick={() => {
+                          setFrom(option);
+                          setShowFromMenu(false);
+                        }}
+                      >
+                        {option}
+                      </button>
+                    ))}
+                  </div>
+                )}
                 <svg
                   className={styles.icon}
                   width="16"
@@ -149,20 +181,47 @@ export default function Home() {
               <div className={styles.line} />
             </div>
 
-            <div className={styles.field}>
-              <label className={styles.fieldLabel} htmlFor="to">
+            <div className={`${styles.field} ${showToMenu ? styles.fieldOverlay : ""}`}>
+              <label className={styles.fieldLabel} htmlFor="to-trigger">
                 <span className={`${styles.dot} ${styles.dotTo}`} />
                 Til
               </label>
               <div className={styles.inputWrap}>
-                <input
-                  id="to"
-                  name="to"
-                  type="text"
-                  placeholder="Destinasjon"
-                  value={to}
-                  onChange={(event) => setTo(event.target.value)}
-                />
+                <button
+                  id="to-trigger"
+                  type="button"
+                  className={`${styles.dropdownTrigger} ${
+                    to ? styles.dropdownFilled : styles.dropdownPlaceholder
+                  }`}
+                  aria-expanded={showToMenu}
+                  onClick={() => {
+                    setShowToMenu((open) => !open);
+                    setShowFromMenu(false);
+                  }}
+                >
+                  <span>{to || "Velg destinasjon"}</span>
+                  <span className={styles.dropdownArrow}>▾</span>
+                </button>
+
+                {showToMenu && (
+                  <div className={styles.dropdownMenu} role="listbox" aria-label="Velg destinasjon">
+                    {toOptions.map((option) => (
+                      <button
+                        key={option}
+                        type="button"
+                        className={`${styles.dropdownOption} ${
+                          to === option ? styles.dropdownOptionActive : ""
+                        }`}
+                        onClick={() => {
+                          setTo(option);
+                          setShowToMenu(false);
+                        }}
+                      >
+                        {option}
+                      </button>
+                    ))}
+                  </div>
+                )}
                 <svg
                   className={styles.icon}
                   width="16"
