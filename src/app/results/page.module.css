@@ -2,47 +2,49 @@
   display: flex;
   width: 100%;
   justify-content: center;
-  padding: 48px 20px;
+  padding: 24px;
 }
 
 .card {
   width: 100%;
-  max-width: 860px;
-  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
-  border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0, 48, 73, 0.15);
-  padding: 42px;
+  max-width: 920px;
+  background: #fff;
+  border-radius: 24px;
+  box-shadow:
+    0 2px 4px var(--shadow),
+    0 12px 40px rgba(13, 13, 13, 0.09),
+    0 0 0 1px rgba(13, 13, 13, 0.04);
+  padding: 44px;
 }
 
 .header {
-  margin-bottom: 28px;
+  margin-bottom: 30px;
 }
 
 .title {
   margin: 0;
+  font-family: var(--font-playfair-display), serif;
   font-size: 32px;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.3;
-  color: var(--brand-ink);
-  font-family: Georgia, serif;
-  letter-spacing: -0.5px;
+  color: var(--ink);
 }
 
 .subtitle {
   margin: 8px 0 0;
-  color: #555;
+  color: #777;
   font-size: 15px;
   line-height: 1.6;
 }
 
 .message {
   margin: 12px 0;
-  color: #555;
+  color: #666;
   font-size: 16px;
 }
 
 .link {
-  color: var(--brand-accent);
+  color: var(--amber);
   font-weight: 600;
 }
 
@@ -55,14 +57,21 @@
 }
 
 .departureCard {
-  border: 1px solid #d9e6eb;
-  border-radius: 12px;
-  background: #fff;
+  border: 1.5px solid #e7dfd0;
+  border-radius: 16px;
+  background: #fcfaf6;
   padding: 20px;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.departureCard:hover {
+  border-color: var(--sand);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(13, 13, 13, 0.08);
 }
 
 .route {
-  color: var(--brand-ink);
+  color: var(--ink);
   font-size: 18px;
   margin-bottom: 10px;
 }
@@ -70,13 +79,13 @@
 .times {
   display: flex;
   gap: 18px;
-  color: #344b54;
+  color: #534f46;
   font-size: 14px;
   margin-bottom: 6px;
 }
 
 .duration {
-  color: #5b6f77;
+  color: #70695d;
   font-size: 14px;
   margin-bottom: 14px;
   line-height: 1.55;
@@ -90,7 +99,7 @@
 }
 
 .price {
-  color: var(--brand-ink);
+  color: var(--ink);
   font-size: 22px;
   font-weight: 700;
 }
@@ -98,28 +107,27 @@
 .button {
   padding: 12px 28px;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   color: #fff;
-  background: linear-gradient(135deg, var(--brand-accent) 0%, var(--brand-accent-strong) 100%);
+  background: var(--ink);
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 8px 20px rgba(0, 129, 167, 0.25);
+  box-shadow: 0 8px 20px rgba(13, 13, 13, 0.18);
   transition: all 0.3s ease;
 }
 
 .button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(0, 129, 167, 0.35);
+  background: var(--amber);
 }
 
 @media (max-width: 700px) {
   .page {
-    padding: 24px 12px;
+    padding: 14px;
   }
 
   .card {
-    padding: 26px;
+    padding: 28px 22px;
   }
 
   .title {
@@ -138,36 +146,5 @@
 
   .button {
     width: 100%;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .card {
-    background: linear-gradient(135deg, #1a3a3f 0%, #0f2a2e 100%);
-  }
-
-  .title {
-    color: var(--brand-accent);
-  }
-
-  .subtitle,
-  .message,
-  .times,
-  .duration {
-    color: #c7d2d8;
-  }
-
-  .departureCard {
-    background: rgba(6, 30, 36, 0.55);
-    border-color: #2f545e;
-  }
-
-  .route,
-  .price {
-    color: #eaf4f8;
-  }
-
-  .link {
-    color: var(--brand-accent-soft);
   }
 }

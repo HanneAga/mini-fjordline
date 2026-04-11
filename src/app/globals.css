@@ -1,20 +1,22 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --brand-ink: #003049;
-  --brand-accent: #0081a7;
-  --brand-accent-strong: #00b4d8;
-  --brand-accent-soft: #00d9ff;
+  --ink: #0d0d0d;
+  --paper: #f5f0e8;
+  --cream: #ede8dc;
+  --sand: #d4c9b0;
+  --amber: #c8832a;
+  --amber-light: #e8a84a;
+  --shadow: rgba(13, 13, 13, 0.12);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --brand-ink: #eaf4f8;
-    --brand-accent: #00b4d8;
-    --brand-accent-strong: #00d9ff;
-    --brand-accent-soft: #00ffff;
+    --ink: #f4efe6;
+    --paper: #151210;
+    --cream: #1e1915;
+    --sand: #5c4d39;
+    --amber: #d7963d;
+    --amber-light: #e8b365;
+    --shadow: rgba(0, 0, 0, 0.35);
   }
 }
 
@@ -32,11 +34,14 @@ body {
   min-height: 100%;
   display: flex;
   flex-direction: column;
-  color: var(--foreground);
+  color: var(--ink);
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #003049 0%, #0c1e26 100%);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  background-image:
+    radial-gradient(ellipse at 20% 80%, rgba(200, 131, 42, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(200, 131, 42, 0.06) 0%, transparent 50%);
+  font-family: var(--font-dm-sans), sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -56,26 +61,33 @@ input,
 textarea,
 select {
   font-family: inherit;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.5;
-  padding: 12px 14px;
-  border: 1.5px solid #0081a7;
-  border-radius: 8px;
-  background-color: #ffffff;
-  color: #003049;
-  transition: all 0.3s ease;
+  padding: 17px 16px;
+  border: 1.5px solid transparent;
+  border-radius: 14px;
+  background-color: var(--cream);
+  color: var(--ink);
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
 }
 
 input::placeholder {
-  color: #999;
+  color: #b4b4b4;
+}
+
+input:hover,
+textarea:hover,
+select:hover {
+  border-color: var(--sand);
 }
 
 input:focus,
 textarea:focus,
 select:focus {
   outline: none;
-  border-color: #00d9ff;
-  box-shadow: 0 0 0 3px rgba(0, 217, 255, 0.15), inset 0 1px 2px rgba(0, 0, 0, 0.05);
+  border-color: var(--amber);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(200, 131, 42, 0.1);
 }
 
 input[type="date"] {
@@ -90,20 +102,19 @@ button {
   input,
   textarea,
   select {
-    background-color: #1a3a3f;
-    border-color: #00d9ff;
-    color: #ffffff;
+    background-color: var(--cream);
+    color: var(--ink);
   }
 
   input::placeholder {
-    color: #888;
+    color: #8c8275;
   }
 
   input:focus,
   textarea:focus,
   select:focus {
-    border-color: #00ffff;
-    box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.2), inset 0 1px 2px rgba(0, 0, 0, 0.2);
+    border-color: var(--amber-light);
+    box-shadow: 0 0 0 4px rgba(215, 150, 61, 0.18);
   }
 }
 

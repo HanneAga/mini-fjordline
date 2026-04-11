@@ -1,117 +1,254 @@
-.main {
-  display: flex;
-  flex: 1;
+.page {
   width: 100%;
-  max-width: 500px;
-  flex-direction: column;
-  gap: 44px;
-  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
-  padding: 64px 48px;
-  border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0, 48, 73, 0.15);
+  display: flex;
+  justify-content: center;
+  padding: 24px;
 }
 
-.header {
+.card {
+  width: 420px;
+  max-width: 95vw;
+  border-radius: 24px;
+  background: #fff;
+  padding: 48px 44px 52px;
+  box-shadow:
+    0 2px 4px var(--shadow),
+    0 12px 40px rgba(13, 13, 13, 0.09),
+    0 0 0 1px rgba(13, 13, 13, 0.04);
+  animation: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 10px;
+}
+
+.title {
+  font-family: var(--font-playfair-display), serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.2;
+  margin-bottom: 36px;
+}
+
+.route {
   display: flex;
   flex-direction: column;
-  gap: 12px;
 }
 
-.header h1 {
-  font-size: 32px;
-  font-weight: 600;
-  line-height: 1.3;
-  color: var(--brand-ink);
-  font-family: Georgia, serif;
-  letter-spacing: -0.5px;
-  margin: 0;
+.field {
+  animation: fadein 0.5s ease both;
 }
 
-.header p {
-  font-size: 15px;
-  line-height: 1.7;
-  color: #555;
-  margin: 0;
+.dateField {
+  margin-top: 22px;
 }
 
-.form {
+.fieldLabel {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 8px;
   display: flex;
-  flex-direction: column;
-  gap: 22px;
-}
-
-.formGroup {
-  display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 6px;
 }
 
-.formGroup label {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--brand-ink);
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
 }
 
-.submitButton {
-  align-self: flex-start;
-  margin-top: 10px;
-  padding: 14px 40px;
-  font-size: 16px;
-  font-weight: 600;
-  background: linear-gradient(135deg, var(--brand-accent) 0%, var(--brand-accent-strong) 100%);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
+.dotFrom {
+  background: var(--ink);
+}
+
+.dotTo {
+  background: var(--amber);
+}
+
+.inputWrap {
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #bbb;
+  pointer-events: none;
+  transition: color 0.2s;
+}
+
+.inputWrap input {
+  padding-left: 46px;
+}
+
+.inputWrap:focus-within .icon {
+  color: var(--amber);
+}
+
+.connector {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 14px 0;
+}
+
+.line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--sand), transparent);
+}
+
+.swapButton {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1.5px solid var(--sand);
+  background: #fff;
+  color: var(--ink);
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 8px 20px rgba(0, 129, 167, 0.25);
+  transition: background 0.2s, border-color 0.2s, transform 0.3s;
 }
 
-.submitButton:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 28px rgba(0, 129, 167, 0.35);
+.swapButton:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
 }
 
-.submitButton:active {
-  transform: translateY(-1px);
+.swapButton:active {
+  transform: rotate(180deg);
 }
 
-@media (max-width: 600px) {
-  .main {
-    padding: 44px 24px;
-    gap: 32px;
-    max-width: 100%;
+.searchButton {
+  margin-top: 28px;
+  width: 100%;
+  padding: 17px;
+  border-radius: 14px;
+  border: none;
+  background: var(--ink);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.searchButton:hover {
+  background: var(--amber);
+}
+
+.searchButton:active {
+  transform: scale(0.98);
+}
+
+.arrow {
+  opacity: 0.7;
+  font-size: 16px;
+}
+
+.popupOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(13, 13, 13, 0.32);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 30;
+}
+
+.popup {
+  width: 360px;
+  max-width: 94vw;
+  border-radius: 18px;
+  background: #fff;
+  padding: 24px;
+  box-shadow:
+    0 2px 4px var(--shadow),
+    0 12px 40px rgba(13, 13, 13, 0.09),
+    0 0 0 1px rgba(13, 13, 13, 0.04);
+  animation: rise 0.35s ease both;
+}
+
+.popupEyebrow {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 8px;
+}
+
+.popupTitle {
+  margin: 0;
+  font-family: var(--font-playfair-display), serif;
+  font-size: 24px;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.popupText {
+  margin: 10px 0 18px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #6d6456;
+}
+
+.popupButton {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.popupButton:hover {
+  background: var(--amber);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
   }
 
-  .header h1 {
-    font-size: 28px;
-  }
-
-  .header p {
-    font-size: 14px;
-  }
-
-  .submitButton {
-    width: 100%;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  .main {
-    background: linear-gradient(135deg, #1a3a3f 0%, #0f2a2e 100%);
+@keyframes fadein {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
   }
 
-  .header h1 {
-    color: var(--brand-accent);
-  }
-
-  .header p {
-    color: #ccc;
-  }
-
-  .formGroup label {
-    color: var(--brand-accent-soft);
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
